@@ -25,6 +25,7 @@ class ReportTask extends Model
         'performance_status',
         'file_count'
     ];
+    
     public function task()
     {
         return $this->belongsTo(PhaseTask::class,'phase_task_id');

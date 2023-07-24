@@ -18,6 +18,7 @@ class ReportRequestMaintenanceResource extends JsonResource
         return [
             'id'=>$this->id,
             'request_maintenance_id'=>$this->request_maintenance_id,
+            'request_no'=>$this->request->request_no,
             'total_stock_qty'=>$this->total_stock_qty,
             'finished_date'=>$this->finished_date,
             'progress'=>$this->progress,

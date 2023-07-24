@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $with = ['category','brand','subcategory','primarysupplier'];
+    protected $with = ['category','brand','subcategory','primarysupplier','items'];
 
     protected $fillable = [
         'department_id',
@@ -39,7 +39,6 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
-
 
     public function subcategory(){
         return $this->belongsTo(SubCategory::class);

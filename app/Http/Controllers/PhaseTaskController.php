@@ -197,8 +197,7 @@ class PhaseTaskController extends Controller
 
         $data=ReportTask::with('task.project_phase.project')->whereHas('task.project_phase.project',function ($query) use($employee){
            $query->where('user_id',$employee->user_id);
-        })->get();
-
+        })->orderByDesc('finished_date')->get();
         return response()->json($data);
     }
 }

@@ -34,6 +34,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\RequestMaterialController;
+use App\Http\Controllers\SaleController;
 use App\Models\PhaseTask;
 use App\Models\Product;
 
@@ -180,6 +181,9 @@ Route::post('requestProductStore',[RequestMaterialController::class,'storeReques
 Route::get('requestProductList',[RequestMaterialController::class,'getRequestMaterialList']);
 
 
+//Sale_Order
+Route::get('sales_order',[SaleController::class,'getSaleOrders']);
+Route::post('sales_order_save',[SaleController::class,'storeSaleOrder']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
