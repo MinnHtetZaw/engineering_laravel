@@ -20,7 +20,7 @@ class SaleOrderResource extends JsonResource
             'delivery_date'=>$this->delivery_date,
             'project'=>$this->project->name,
             'phase'=>$this->phase->phase_name,
-            'orders'=>SaleOrderListResource::collection($this->orderList)
+            'products'=>SaleOrderListResource::collection($this->orderList)
         ];
     }
 }

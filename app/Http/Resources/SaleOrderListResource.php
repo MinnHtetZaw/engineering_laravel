@@ -17,6 +17,8 @@ class SaleOrderListResource extends JsonResource
         return [
             'product_id'=>$this->product_id,
             'product_name'=>$this->product->product_name,
+            'part_number'=>$this->product->part_number,
+            'brand'=>$this->product->brand->brand_name,
             'qty'=>$this->qty
         ];
     }
