@@ -19,6 +19,8 @@ class SaleOrderListResource extends JsonResource
             'product_name'=>$this->product->product_name,
             'part_number'=>$this->product->part_number,
             'brand'=>$this->product->brand->brand_name,
+            'instock_qty'=>$this->product->instock_quantity,
+            'required_qty'=>$this->requiredQty(),
             'qty'=>$this->qty
         ];
     }

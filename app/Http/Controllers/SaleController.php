@@ -47,5 +47,6 @@ class SaleController extends Controller
       $data = SaleOrder::all();
 
       return SaleOrderResource::collection($data);
+      
     }
 }

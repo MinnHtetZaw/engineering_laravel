@@ -14,7 +14,7 @@ class SaleOrderResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
             'id'=>$this->id,
             'sale_order_no'=>$this->sale_order_no,
             'delivery_date'=>$this->delivery_date,
@@ -22,5 +22,6 @@ class SaleOrderResource extends JsonResource
             'phase'=>$this->phase->phase_name,
             'products'=>SaleOrderListResource::collection($this->orderList)
         ];
+
     }
 }

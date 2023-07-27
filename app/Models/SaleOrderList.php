@@ -22,4 +22,18 @@ class SaleOrderList extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function requiredQty()
+    {
+            $instock = $this->product->instock_quantity;
+            $request_qty = $this->qty;
+
+            if($instock >= $request_qty)
+            {
+                return 0;
+            }else
+            {
+                return $request_qty - $instock;
+            }
+    }
 }
