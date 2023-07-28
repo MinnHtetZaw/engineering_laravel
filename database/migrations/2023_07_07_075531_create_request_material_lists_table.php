@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('request_material_id');
             $table->unsignedInteger('product_id');
-            $table->integer('quantity');
+            $table->integer('requested_quantity');
+            $table->integer('approved_quantity');
             $table->timestamps();
         });
     }

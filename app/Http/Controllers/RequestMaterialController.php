@@ -14,6 +14,8 @@ class RequestMaterialController extends Controller
     {
         $data= RequestMaterial::create([
             'employee_id'=>$request->employee_id,
+            'project_id'=>$request->project_id,
+            'project_phase_id'=>$request->phase_id,
             'request_date'=>$request->request_date,
             'reason'=>$request->reason,
             'requested_by'=>$request->requested_by
@@ -24,7 +26,8 @@ class RequestMaterialController extends Controller
             RequestMaterialList::create([
                 'request_material_id'=>$data->id,
                 'product_id'=>$product['product_id'],
-                'quantity'=>$product['quantity'],
+                'requested_quantity'=>$product['quantity'],
+                'approved_quantity'=>$product['quantity'],
             ]);
         }
 
@@ -34,5 +37,18 @@ class RequestMaterialController extends Controller
     public function getRequestMaterialList()
     {
         return RequestMaterialResource::collection(RequestMaterial::all());
+    }
+
+    public function changeStatus(Request $request)
+    {
+        try {
+            $data = RequestMaterial::findOrFail($request->request_id);
+            $data->isApproved = $request->isApproved;
+            $data->save();
+
+        } catch (\Throwable $th) {
+            return $th;
+        }
+        return response()->json($data);
     }
 }

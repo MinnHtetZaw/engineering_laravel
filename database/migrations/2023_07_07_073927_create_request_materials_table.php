@@ -16,9 +16,13 @@ return new class extends Migration
         Schema::create('request_materials', function (Blueprint $table) {
             $table->id();
             $table->date('request_date');
+            $table->unsignedInteger('project_id');
+            $table->unsignedInteger('project_phase_id');
+            $table->tinyInteger('isApproved')->default(0)->comment('0-Pending,1-Approve,2-Decline');
             $table->unsignedInteger('employee_id');
             $table->text('reason')->nullable();
             $table->string('requested_by')->nullable();
+
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class RequestMaterialList extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['request_material_id','product_id','quantity'];
+    protected $fillable = ['request_material_id','product_id','requested_quantity','approved_quantity'];
 
     public function product():BelongsTo
     {
