@@ -20,25 +20,14 @@ use App\Models\SupplierProductComparison;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function index()
     {
-
-        $pro_ids = Item::where('warehouse_type', 1)->get();
-        $pdo = [];
-        foreach($pro_ids as $pro_id) {
-            $products = Product::where('id', $pro_id->product_id)->first();
-            array_push($pdo,$products);
-        }
 
         $productData = Product::all();
 
         return response()->json([
-            'products' => $pdo,
+
             'productData'=>$productData
         ], 200);
     }
