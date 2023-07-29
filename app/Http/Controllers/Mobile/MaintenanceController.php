@@ -1,22 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mobile;
 
 use Carbon\Carbon;
 use App\Models\Room;
-use App\Models\Asset;
 use App\Models\Building;
-use App\Models\Maintenance;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-// use Intervention\Image\Image;
-use App\Http\Requests\TestRequest;
-
 use App\Models\RequestMaintenance;
-
-use Illuminate\Support\Facades\Redis;
+use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
 use App\Models\ReportRequestMaintenance;
 use Illuminate\Support\Facades\Validator;
 use App\Models\ReportRequestMinatenanceFile;
@@ -25,83 +18,6 @@ use App\Http\Resources\ReportRequestMaintenanceResource;
 class MaintenanceController extends Controller
 {
     //
-    public function getMaintenanceData()
-    {
-        $maintenanceData = Maintenance::all();
-
-        return response()->json(['data' => $maintenanceData]);
-    }
-
-    public function storeMaintenance(Request $request)
-    {
-
-        $maintenanceName = 'Maintenance_' . uniqid() . "." . $request->file('file')->extension();
-        $request->file('file')->move(public_path() . '/maintenance/', $maintenanceName);
-
-        $maintenanceData = new Maintenance();
-        $maintenanceData->last_maintenance_date = $request->last_maintenance_date;
-        $maintenanceData->next_maintenance_date = $request->next_maintenance_date;
-        $maintenanceData->type = $request->type;
-        $maintenanceData->remark = $request->remark;
-        $maintenanceData->person = $request->person;
-        $maintenanceData->maintenance_docs = $maintenanceName;
-        $maintenanceData->asset_id = $request->asset_id;
-        $maintenanceData->save();
-
-        $asset = Asset::find($request->asset_id);
-        $asset->last_maintenance_date = $request->last_maintenance_date;
-        $asset->next_maintenance_date =  $request->next_maintenance_date;
-        $asset->save();
-
-        return response()->json(['success' => 'Successfully Added']);
-    }
-
-    public function getRequestList()
-    {
-        $requestLists = RequestMaintenance::with('asset:id,name,room_id', 'asset.room:id,room_number', 'employee:id,name')->get();
-
-        return response()->json(['requests' => $requestLists]);
-    }
-
-    public function getBuildingRoomData()
-    {
-        $buildings =  Building::all();
-        $room = Room::with('assetrequest')->get();
-        return response()->json(['room' => $room, 'buildings' => $buildings]);
-    }
-
-    public function storeRequest(Request $request)
-    {
-        RequestMaintenance::create([
-            'request_no' => $request->request_no,
-            'requset_date' => $request->requset_date,
-            'due_date' => $request->due_date,
-            'condition' => $request->condition,
-            'requirement_remark' => $request->remark,
-            'asset_id' => $request->asset_id,
-            'finish_status' => 0,
-        ]);
-
-        return response()->json(['success' => 'success']);
-    }
-
-    public function getRequestDetail($id)
-    {
-        $data = RequestMaintenance::find($id);
-        $asset = Asset::select('name', 'room_id')->find($data->asset_id);
-        $room = Room::select('room_number', 'building_id')->find($asset->room_id);
-        $building = Building::select('name')->find($room->building_id);
-
-        return response()->json(['request' => $data, 'asset' => $asset, 'room' => $room, 'building' => $building]);
-    }
-
-    public function approveRequest(Request $request)
-    {
-        $data = RequestMaintenance::find($request->id);
-        $data->employee_id = $request->employee_id;
-        $data->save();
-        return response()->json(['success' => 'success']);
-    }
 
     public function storeReport(Request $request)
     {
@@ -231,11 +147,40 @@ class MaintenanceController extends Controller
 
         return ReportRequestMaintenanceResource::collection($reports);
     }
+    public function getRequestList()
+    {
+        $requestLists = RequestMaintenance::with('asset:id,name,room_id', 'asset.room:id,room_number', 'employee:id,name')->get();
+
+        return response()->json(['requests' => $requestLists]);
+    }
+
 
     public function getRequestListByEmployeeID(Request $request)
     {
         $requestLists = RequestMaintenance::where('employee_id',$request->employee_id)->with('asset:id,name,room_id', 'asset.room:id,room_number', 'employee:id,name')->get();
 
         return response()->json(['requests' => $requestLists]);
+    }
+
+    public function storeRequest(Request $request)
+    {
+        RequestMaintenance::create([
+            'request_no' => $request->request_no,
+            'requset_date' => $request->requset_date,
+            'due_date' => $request->due_date,
+            'condition' => $request->condition,
+            'requirement_remark' => $request->remark,
+            'asset_id' => $request->asset_id,
+            'finish_status' => 0,
+        ]);
+
+        return response()->json(['success' => 'success']);
+    }
+
+    public function getBuildingRoomData()
+    {
+        $buildings =  Building::all();
+        $room = Room::with('assetrequest')->get();
+        return response()->json(['room' => $room, 'buildings' => $buildings]);
     }
 }
