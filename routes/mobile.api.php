@@ -66,7 +66,6 @@ Route::get('product_display',[ProductController::class,'displayProduct']);  // W
 Route::apiResource('supplier', SupplierController::class);
 Route::apiResource('company', CompanyController::class);
 Route::apiResource('item', ItemController::class);
-Route::apiResource('regional_warehouse', RegWarehouseController::class);
 Route::get('regional_warehouse_products/{id}', [RegWarehouseController::class, 'regWarehouseProducts']);
 Route::get('site_items', [ItemController::class, 'SiteItems']);
 Route::get('mobile_site_inventory',[ItemController::class,'SiteItemsInventory']);
@@ -89,32 +88,6 @@ Route::post('report_task_store',[PhaseTaskController::class,'storeReportTask']);
 Route::get('reportList/{task}',[PhaseTaskController::class,'getReportList']);
 Route::get('task_report_list_by_employee/{employee}',[PhaseTaskController::class,'getAllListByID']);
 
-//product filter (BOM)
-Route::post('proj_dep_fil', [ProductController::class, 'department_filter']);
-Route::post('proj_cat_fil', [ProductController::class, 'category_filter']);
-Route::post('proj_subcat_fil', [ProductController::class, 'subcategory_filter']);
-Route::post('proj_brand_fil', [ProductController::class, 'brand_filter']);
-Route::apiResource('bom', BillOfMaterialController::class);
-// Route::get('bom/{id}',[BillOfMaterialController::class,'getBom']);
-Route::get('bomproduct/{bid}/{sid}', [BillOfMaterialController::class, 'supplierproduct']);
-Route::get('bomproduct/{id}', [BillOfMaterialController::class, 'bomproduct']);
-Route::post('bomproductid', [BillOfMaterialController::class, 'bomproductid']);
-Route::post('bomproductqty', [BillOfMaterialController::class, 'bomproductqty']);
-Route::post('bomproductspec', [BillOfMaterialController::class, 'bomproductspec']);
-Route::post('bomproductviewspec', [BillOfMaterialController::class, 'bomproductviewspec']);
-Route::apiResource('bomsupplier', BomSupplierController::class);
-Route::apiResource('bomsupplierquotation', BomSupplierQuotationController::class);
-Route::post('bomsupplierquotationfile', [BomSupplierQuotationController::class, 'detail']);
-Route::get('bomsupplierfil/{id}', [BomSupplierController::class, 'BomSupplierFilter']);
-Route::get('bomsupplierproduct/{id}', [BomSupplierProductController::class, 'getBomSupplierProductData']);
-Route::post('send/request_email', [BillOfMaterialController::class, 'request_mail']);
-Route::post('test', [BillOfMaterialController::class, 'test']);
-Route::apiResource('bomsupplierinvoice', BomSupplierInvoiceController::class);
-Route::post('bomsupplierinvoicefile', [BomSupplierInvoiceController::class, 'detail']);
-Route::post('bomsupplierGRNData_save', [BomSupplierGRNController::class, 'saveGRNData']);
-Route::post('grnItem_store', [BomSupplierGRNController::class, 'saveGRNItem']);
-
-
 Route::post('storeProductData', [AdminController::class, 'storeProductData']);
 Route::get('newProductid', [AdminController::class, 'getNewProductId']);
 Route::get('incoterm', [AdminController::class, 'getIncotermList']);
@@ -123,25 +96,6 @@ Route::get('pro_detail/{id}', [AdminController::class, 'getProductDetail']);
 Route::get('product_compare/{id}', [AdminController::class, 'getProductCompareData']);
 Route::get('item_detail/{id}', [AdminController::class, 'getItemDetail']);
 Route::get('department', [AdminController::class, 'getDepartmentList']);
-
-//Zone
-Route::get('zone', [ZoneController::class, 'getZone']);
-Route::post('zone_store', [ZoneController::class, 'store_zone']);
-
-//Shelf
-Route::get('shelf', [ShelfController::class, 'getShelf']);
-Route::post('shelf_store', [ShelfController::class, 'storeShelf']);
-
-//Level
-Route::get('level', [LevelController::class, 'getLevel']);
-Route::post('level_store', [LevelController::class, 'storeLevel']);
-
-//Part
-Route::get('part', [PartController::class, 'getPartall']);
-Route::post('part_store', [PartController::class, 'storePart']);
-Route::post('part_edit/{id}', [PartController::class, 'editPart']);
-Route::get('part_delete/{id}', [PartController::class, 'deletePart']);
-
 
 //Assest
 Route::get('asset', [AssetController::class, 'getAsset']);
@@ -160,7 +114,6 @@ Route::post('request_list_by_employeeID',[MaintenanceController::class,'getReque
 Route::post('approveRequest',[MaintenanceController::class,'approveRequest']);
 Route::post('report_maintenance_store',[MaintenanceController::class,'storeReport']);
 Route::get('reportReqMaintainList/{reqMaintain}',[MaintenanceController::class,'getList']);
-Route::post('testVal',[MaintenanceController::class,'test']);
 
 //Building
 Route::get('building', [BuildingController::class, 'getBuilding']);

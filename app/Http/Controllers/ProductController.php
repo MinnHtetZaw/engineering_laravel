@@ -27,16 +27,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $subcategories = SubCategory::all();
-        $brands = Brand::all();
-        $suppliers = Supplier::all();
-        $departments = Department::all();
-        $currencies = Currency::all();
-        $zone=Zone::all();
-        $shelf=Shelf::all();
-        $level=Level::all();
-
 
         $pro_ids = Item::where('warehouse_type', 1)->get();
         $pdo = [];
@@ -45,43 +35,14 @@ class ProductController extends Controller
             array_push($pdo,$products);
         }
 
-        $regwarehouses = RegionalWarehouse::all();
-
         $productData = Product::all();
 
         return response()->json([
-            'categories' => $categories,
-            'subcategories' => $subcategories,
-            'brands' => $brands,
-            'suppliers' => $suppliers,
-            // 'products' => $products,
-            'departments' => $departments,
-            'currencies' => $currencies,
             'products' => $pdo,
-            'regwarehouses' => $regwarehouses,
-            'zone'=>$zone,
-            'shelf'=>$shelf,
-            'level'=>$level,
             'productData'=>$productData
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -122,23 +83,7 @@ class ProductController extends Controller
         ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $product = Product::whereId($id)->first();
@@ -147,13 +92,7 @@ class ProductController extends Controller
         ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -204,12 +143,7 @@ class ProductController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         Product::where('id', $id)->delete();
