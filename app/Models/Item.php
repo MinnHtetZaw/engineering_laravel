@@ -14,6 +14,8 @@ class Item extends Model
         'warehouse_type',
         'warehouse_id',
         'site',
+        'project_id',
+        'project_phase_id',
         'serial_no',
         'model',
         'size',

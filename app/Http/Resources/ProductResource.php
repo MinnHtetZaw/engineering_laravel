@@ -17,6 +17,9 @@ class ProductResource extends JsonResource
         return [
             'id'=>$this->id,
             'product_name'=>$this->product_name,
+            'brand'=>$this->brand->brand_name,
+            'category'=>$this->category->category_name,
+            'subcategory'=>$this->subcategory->subcategory_name,
             'product_img'=>url('/images')."/".$this->product_img,
             'items'=> SiteItemResource::collection($this->items),
         ];

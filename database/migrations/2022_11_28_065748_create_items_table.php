@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('warehouse_type')->nullable();
             $table->integer('warehouse_id')->nullable();
             $table->integer('site')->nullable();
+            $table->unsignedInteger('project_id')->nullable();
+            $table->unsignedInteger('project_phase_id')->nullable();
             $table->string('serial_no');
             $table->string('model');
             $table->string('size');

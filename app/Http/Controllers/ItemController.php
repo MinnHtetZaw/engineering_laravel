@@ -27,6 +27,8 @@ class ItemController extends Controller
             'warehouse_type' => $request->warehouse_type,
             'warehouse_id' => $request->warehouse_id,
             'site' => $request->site,
+            'project_id'=>$request->project_id,
+            'project_phase_id'=>$request->phase_id,
             'serial_no' => $request->serial_no,
             'model' => $request->model,
             'size' => $request->size,
@@ -64,10 +66,13 @@ class ItemController extends Controller
 
     public function SiteItems()
     {
-        $sitems = Item::where('site', 2)->get();
-        return response()->json([
-            'sitems' => $sitems,
-        ], 200);
+        // $sitems = Product::where('site', 2)->get();
+
+        $items =Product::withWhereHas('items',function ($query){
+            $query->where('site',2);
+        })->get();
+
+        return ProductResource::collection($items);
     }
 
     public function SiteItemsInventory()

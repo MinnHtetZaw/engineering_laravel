@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth:api','CustomerPermissionAPI']], function ()
 
 //Product
 Route::get('productList',[ProductController::class,'getProductList']);
-Route::get('mobile_site_inventory',[ItemController::class,'SiteItemsInventory']);
+Route::post('mobile_site_inventory',[ItemController::class,'SiteItemsInventory']);
 
 
 // Project
