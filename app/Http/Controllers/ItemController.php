@@ -78,7 +78,6 @@ class ItemController extends Controller
     public function SiteItemByPhase($id)
     {
 
-
         $items =Product::withWhereHas('items',function ($query) use ($id){
             $query->where('site',2)->where('project_phase_id',$id);
         })->get();

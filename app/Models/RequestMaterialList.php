@@ -18,4 +18,27 @@ class RequestMaterialList extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function instockQty()
+    {
+        $items = $this->product->items;
+        $qty =collect($items)
+            ->groupBy('product_id')
+            ->map(function ($query){
+                 return ["required" =>$query->where('warehouse_type',1)->sum('stock_qty')];
+             })
+             ->value('required');
+
+        return $qty;
+    }
+
+    public function requiredQty()
+    {
+        $instock = $this->instockQty();
+        $req_qty = $this->requested_quantity;
+
+
+            if($req_qty > $instock) return $req_qty - $instock;
+            else return 0;
+    }
+
 }

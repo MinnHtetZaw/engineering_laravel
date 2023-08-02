@@ -19,7 +19,9 @@ class RequestMaterialListResource extends JsonResource
             'product_id'=>$this->product_id,
             'name'=>$this->product->product_name,
             'requested_quantity'=>$this->requested_quantity,
-            'approved_quantity'=>$this->approved_quantity
+            'approved_quantity'=>$this->approved_quantity,
+            'instock_quantity'=>$this->instockQty(),
+            'required_quantity'=>$this->requiredQty()
         ];
     }
 }
