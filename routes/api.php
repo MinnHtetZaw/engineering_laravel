@@ -71,7 +71,7 @@ Route::apiResource('item', ItemController::class);
 Route::apiResource('regional_warehouse', RegWarehouseController::class);
 Route::get('regional_warehouse_products/{id}', [RegWarehouseController::class, 'regWarehouseProducts']);
 Route::get('site_items', [ItemController::class, 'SiteItems']);
-Route::get('mobile_site_inventory',[ItemController::class,'SiteItemsInventory']);
+Route::get('site_items/phase/{id}', [ItemController::class,'SiteItemByPhase']);
 
 Route::get('account_type', [AccountingController::class, 'account_type']);
 Route::apiResource('cost_center', CostCenterController::class);

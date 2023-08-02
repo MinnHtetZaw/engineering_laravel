@@ -75,12 +75,14 @@ class ItemController extends Controller
         return ProductResource::collection($items);
     }
 
-    public function SiteItemsInventory()
+    public function SiteItemByPhase($id)
     {
 
-        $items =Product::with(['items'=>function ($query){
-            $query->where('site',2)->get();
-        }])->get();
+
+        $items =Product::withWhereHas('items',function ($query) use ($id){
+            $query->where('site',2)->where('project_phase_id',$id);
+        })->get();
+
         return ProductResource::collection($items);
     }
 
