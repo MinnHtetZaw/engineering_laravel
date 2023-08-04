@@ -13,17 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('request_materials', function (Blueprint $table) {
+        Schema::create('material_issues', function (Blueprint $table) {
             $table->id();
-            $table->date('request_date');
+            $table->string('material_issue_no');
+            $table->unsignedInteger('purchase_order_id');
+            $table->integer('total_qty');
+            $table->unsignedInteger('material_request_id');
             $table->unsignedInteger('project_id');
             $table->unsignedInteger('project_phase_id');
-            $table->tinyInteger('isApproved')->default(0)->comment('0-Pending,1-Approve,2-Decline');
-            $table->tinyInteger('isRequested')->default(0)->comment('0-Pending,1-requested');
-            $table->unsignedInteger('employee_id');
-            $table->text('reason')->nullable();
-            $table->string('requested_by')->nullable();
-
+            $table->tinyInteger('isApproved')->default(0)->comment('1-Approved');
+            $table->integer('delivery_order_status');
+            $table->integer('warehouse_transfer_status');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_materials');
+        Schema::dropIfExists('material_issues');
     }
 };

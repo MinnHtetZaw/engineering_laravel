@@ -51,4 +51,9 @@ class RequestMaterialController extends Controller
         }
         return response()->json($data);
     }
+
+    // public function showIssueList()
+    // {
+    //     $data =
+    // }
 }

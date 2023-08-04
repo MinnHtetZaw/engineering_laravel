@@ -180,10 +180,12 @@ Route::get('employee', [EmployeeController::class, 'getEmployee']);
 Route::post('requestProductStore',[RequestMaterialController::class,'storeRequestProduct']);
 Route::get('requestProductList',[RequestMaterialController::class,'getRequestMaterialList']);
 Route::post('request_material_status',[RequestMaterialController::class,'changeStatus']);
+Route::get('material_issue_list',[RequestMaterialController::class,'showIssueList']);
 
 //Sale_Order
 Route::get('sales_order',[SaleController::class,'getSaleOrders']);
 Route::post('sales_order_save',[SaleController::class,'storeSaleOrder']);
+Route::post('purchase/request',[SaleController::class,'purchaseRequest']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
