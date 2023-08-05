@@ -21,6 +21,11 @@ return new class extends Migration
             $table->unsignedInteger('project_phase_id')->nullable();
             $table->unsignedInteger('request_material_id')->nullable();
             $table->unsignedInteger('sale_order_id')->nullable();
+            $table->tinyInteger('destination_flag')->nullable()->comment('1-main,2-regional');
+            $table->unsignedInteger('destination_regional_id')->nullable();
+            $table->string('regional_name')->nullable();
+            $table->tinyInteger('sent_status')->default(0);
+            $table->tinyInteger('officer_sent_status')->default(0);
             $table->timestamps();
         });
     }

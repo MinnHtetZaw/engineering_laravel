@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\SaleOrderResource;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseRequestList;
+use App\Models\RegionalWarehouse;
 use App\Models\SaleOrder;
 use App\Models\SaleOrderList;
 use Illuminate\Http\Request;
@@ -63,6 +64,13 @@ class SaleController extends Controller
         else{
          $pr_num =  "WPR-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", 1);
         }
+        
+        if($request->destination_regional_id){
+            $regWh=  RegionalWarehouse::find($request->destination_regional_id);
+            $regional_name=$regWh->warehouse_name;
+        }else{
+            $regional_name=null;
+        }
 
         try{
             $purchaseRequest= PurchaseRequest::create([
@@ -70,7 +78,10 @@ class SaleController extends Controller
                 'request_date'=>$request->date,
                 'project_id'=>$request->project_id,
                 'project_phase_id'=>$request->phase_id,
-                'request_material_id'=>$request->request_material_id
+                'request_material_id'=>$request->request_material_id,
+                'destination_flag'=>$request->destination_flag,
+                'destination_regional_id'=>$request->destination_regional_id,
+                'regional_name'=>$regional_name
             ]);
 
             foreach($request->products as $product)
