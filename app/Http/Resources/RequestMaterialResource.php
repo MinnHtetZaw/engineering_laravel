@@ -26,6 +26,8 @@ class RequestMaterialResource extends JsonResource
             'request_date'=>$this->request_date,
             'reason'=>$this->reason,
             'isApproved'=>$this->isApproved,
+            'isIssued'=>$this->isIssued,
+            'isRequested'=>$this->isRequested,
             'requested_by'=>$this->requested_by,
             'products'=>RequestMaterialListResource::collection($this->products)
         ];

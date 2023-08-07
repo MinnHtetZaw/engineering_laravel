@@ -36,7 +36,6 @@ class RequestMaterialList extends Model
         $instock = $this->instockQty();
         $req_qty = $this->requested_quantity;
 
-
             if($req_qty > $instock) return $req_qty - $instock;
             else return 0;
     }

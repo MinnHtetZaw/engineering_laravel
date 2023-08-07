@@ -10,6 +10,6 @@ class MaterialIssueList extends Model
     use HasFactory;
 
     protected $fillable = [
-    	'material_issue_id','product_id','issue_qty',
+    	'material_issue_id','item_id','issue_qty',
     ];
 }

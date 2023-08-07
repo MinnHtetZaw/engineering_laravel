@@ -22,9 +22,9 @@ return new class extends Migration
             $table->unsignedInteger('project_id')->nullable();
             $table->unsignedInteger('project_phase_id')->nullable();
             $table->tinyInteger('isApproved')->default(0)->comment('1-Approved');
-            $table->integer('delivery_order_status');
-            $table->integer('warehouse_transfer_status');
-            $table->integer('status');
+            $table->integer('delivery_order_status')->default(0);
+            $table->integer('warehouse_transfer_status')->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

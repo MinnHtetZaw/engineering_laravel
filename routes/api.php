@@ -179,6 +179,7 @@ Route::get('employee', [EmployeeController::class, 'getEmployee']);
 //RequestMaterial
 Route::post('requestProductStore',[RequestMaterialController::class,'storeRequestProduct']);
 Route::get('requestProductList',[RequestMaterialController::class,'getRequestMaterialList']);
+Route::get('requestProductList/{id}',[RequestMaterialController::class,'getRequestById']);
 Route::post('request_material_status',[RequestMaterialController::class,'changeStatus']);
 Route::get('materialIssue/list',[RequestMaterialController::class,'showIssueList']);
 Route::get('materialIssue/save/{id}',[RequestMaterialController::class,'saveMaterialIssue']);

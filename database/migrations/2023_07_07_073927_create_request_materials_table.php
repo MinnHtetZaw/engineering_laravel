@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('employee_id');
             $table->text('reason')->nullable();
             $table->string('requested_by')->nullable();
-
+            $table->date('dispatch_date')->nullable();
             $table->timestamps();
         });
     }

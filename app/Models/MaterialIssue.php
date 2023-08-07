@@ -16,7 +16,7 @@ class MaterialIssue extends Model
         'request_material_id',
         'project_id',
         'project_phase_id',
-        'approve',
+        'isApproved',
         'delivery_order_status',
         'status',
         'warehouse_transfer_status',

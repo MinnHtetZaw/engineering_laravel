@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('material_issue_lists', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('material_issue_id');
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('item_id');
             $table->integer('issue_qty');
             $table->timestamps();
         });
