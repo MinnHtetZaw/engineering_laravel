@@ -180,7 +180,9 @@ Route::get('employee', [EmployeeController::class, 'getEmployee']);
 Route::post('requestProductStore',[RequestMaterialController::class,'storeRequestProduct']);
 Route::get('requestProductList',[RequestMaterialController::class,'getRequestMaterialList']);
 Route::post('request_material_status',[RequestMaterialController::class,'changeStatus']);
-Route::get('material_issue_list',[RequestMaterialController::class,'showIssueList']);
+Route::get('materialIssue/list',[RequestMaterialController::class,'showIssueList']);
+Route::get('materialIssue/save/{id}',[RequestMaterialController::class,'saveMaterialIssue']);
+
 
 //Sale_Order
 Route::get('sales_order',[SaleController::class,'getSaleOrders']);

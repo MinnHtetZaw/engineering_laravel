@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('project_phase_id');
             $table->tinyInteger('isApproved')->default(0)->comment('0-Pending,1-Approve,2-Decline');
             $table->tinyInteger('isRequested')->default(0)->comment('0-Pending,1-requested');
+            $table->tinyInteger('isIssued')->default(0)->comment('0-Pending,1-issued');
             $table->unsignedInteger('employee_id');
             $table->text('reason')->nullable();
             $table->string('requested_by')->nullable();

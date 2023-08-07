@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('material_issues', function (Blueprint $table) {
             $table->id();
             $table->string('material_issue_no');
-            $table->unsignedInteger('purchase_order_id');
+            $table->unsignedInteger('sale_order_id')->nullable();
             $table->integer('total_qty');
-            $table->unsignedInteger('material_request_id');
-            $table->unsignedInteger('project_id');
-            $table->unsignedInteger('project_phase_id');
+            $table->unsignedInteger('request_material_id')->nullable();
+            $table->unsignedInteger('project_id')->nullable();
+            $table->unsignedInteger('project_phase_id')->nullable();
             $table->tinyInteger('isApproved')->default(0)->comment('1-Approved');
             $table->integer('delivery_order_status');
             $table->integer('warehouse_transfer_status');

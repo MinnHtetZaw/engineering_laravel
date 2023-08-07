@@ -10,7 +10,8 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $with = ['category','brand','subcategory','primarysupplier','items'];
+    // protected $with = ['category','brand','subcategory','primarysupplier','items','item_count'];
+    // protected $with = ['item_count'];
 
     protected $fillable = [
         'department_id',

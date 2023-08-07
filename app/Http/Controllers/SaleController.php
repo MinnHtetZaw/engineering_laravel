@@ -6,6 +6,7 @@ use App\Http\Resources\SaleOrderResource;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseRequestList;
 use App\Models\RegionalWarehouse;
+use App\Models\RequestMaterial;
 use App\Models\SaleOrder;
 use App\Models\SaleOrderList;
 use Illuminate\Http\Request;
@@ -64,7 +65,7 @@ class SaleController extends Controller
         else{
          $pr_num =  "WPR-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", 1);
         }
-        
+
         if($request->destination_regional_id){
             $regWh=  RegionalWarehouse::find($request->destination_regional_id);
             $regional_name=$regWh->warehouse_name;
@@ -72,7 +73,12 @@ class SaleController extends Controller
             $regional_name=null;
         }
 
+
         try{
+               $RM = RequestMaterial::find($request->request_material_id);
+               $RM->isRequested = 1;
+               $RM->save();
+               
             $purchaseRequest= PurchaseRequest::create([
                 'pr_no'=>$pr_num,
                 'request_date'=>$request->date,

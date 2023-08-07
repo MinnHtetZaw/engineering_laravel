@@ -20,11 +20,13 @@ use App\Models\SupplierProductComparison;
 
 class ProductController extends Controller
 {
- 
+
     public function index()
     {
 
-        $productData = Product::all();
+        $productData = Product::withCount(['items'=>function($query){
+           return $query->where('in_stock_flag',1)->where('warehouse_type',1);
+        }])->get();
 
         return response()->json([
 

@@ -11,7 +11,7 @@ class RequestMaterial extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['request_date','employee_id','reason','requested_by','project_id','project_phase_id','isApproved','isRequested'];
+    protected $fillable = ['request_date','employee_id','reason','requested_by','project_id','project_phase_id','isApproved','isRequested','isIssued'];
 
     public function employee():BelongsTo
     {

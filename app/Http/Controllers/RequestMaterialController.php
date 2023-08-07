@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RequestMaterialResource;
+use App\Models\MaterialIssue;
 use App\Models\RequestMaterial;
 use App\Models\RequestMaterialList;
 use Illuminate\Http\Request;
@@ -52,8 +53,37 @@ class RequestMaterialController extends Controller
         return response()->json($data);
     }
 
-    // public function showIssueList()
-    // {
-    //     $data =
-    // }
+    public function showIssueList()
+    {
+        $data = MaterialIssue::all();
+
+        return response()->json(['data'=>$data]);
+    }
+
+    public function saveMaterialIssue($id)
+    {
+        $data  =  RequestMaterial::find($id);
+        $data->isIssued = 1;
+        $data->save();
+
+        $mi =  MaterialIssue::get()->last();
+        if($mi)
+        {
+         $mi_num =  "MI-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($mi->id));
+        }
+        else{
+         $mi_num =  "MI-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", 1);
+        }
+
+        try{
+                MaterialIssue::create([
+                    'material_issue_no'=>$mi_num,
+                    'purchase_order_id'
+                ]);
+        }
+        catch(\Throwable $th)
+        {
+            return $th;
+        }
+    }
 }
