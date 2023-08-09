@@ -35,6 +35,7 @@ use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\RequestMaterialController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\Web\WarehouseController;
 use App\Models\PhaseTask;
 use App\Models\Product;
 
@@ -70,6 +71,8 @@ Route::apiResource('company', CompanyController::class);
 Route::apiResource('item', ItemController::class);
 Route::apiResource('regional_warehouse', RegWarehouseController::class);
 Route::get('regional_warehouse_products/{id}', [RegWarehouseController::class, 'regWarehouseProducts']);
+Route::get('regional_warehouse/project/{project}',[RegWarehouseController::class,'projectFilter']);
+Route::get('regional_warehouse/project/phase/{phase}',[RegWarehouseController::class,'getIssueListByPhase']);
 Route::get('site_items', [ItemController::class, 'SiteItems']);
 Route::get('site_items/phase/{id}', [ItemController::class,'SiteItemByPhase']);
 
@@ -184,6 +187,10 @@ Route::post('request_material_status',[RequestMaterialController::class,'changeS
 Route::get('materialIssue/list',[RequestMaterialController::class,'showIssueList']);
 Route::get('materialIssue/save/{id}',[RequestMaterialController::class,'saveMaterialIssue']);
 
+
+//Warehouse
+Route::get('waretransfer/list',[]);
+Route::get('generate_WTO',[WarehouseController::class,'generateWTO']);
 
 //Sale_Order
 Route::get('sales_order',[SaleController::class,'getSaleOrders']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MaterialIssueResource;
 use App\Http\Resources\RequestMaterialResource;
 use App\Models\Item;
 use App\Models\MaterialIssue;
@@ -64,7 +65,9 @@ class RequestMaterialController extends Controller
     {
         $data = MaterialIssue::all();
 
-        return response()->json(['data'=>$data]);
+        return MaterialIssueResource::collection($data);
+
+  
     }
 
     public function saveMaterialIssue($id)

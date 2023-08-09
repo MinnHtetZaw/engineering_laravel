@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\RegionalWarehouse;
 use App\Models\Item;
+use App\Models\MaterialIssue;
 use App\Models\Product;
+use App\Models\Project;
+use App\Models\ProjectPhase;
 
 class RegWarehouseController extends Controller
 {
@@ -17,28 +20,13 @@ class RegWarehouseController extends Controller
      */
     public function index()
     {
-        $regionalwarehouses = RegionalWarehouse::all();
+        $regionalwarehouses = RegionalWarehouse::with('project')->get();
         return response()->json([
             'regionalwarehouses' => $regionalwarehouses
         ],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $photoName = $request->warehouse_photo->getClientOriginalName();
@@ -62,51 +50,6 @@ class RegWarehouseController extends Controller
         ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function regWarehouseProducts($id) {
 
         $items = Item::where('warehouse_id', $id)->get();
@@ -124,5 +67,21 @@ class RegWarehouseController extends Controller
             'products' => $pdo,
             'items' => $items,
         ],200);
+    }
+
+    public function projectFilter(Project $project)
+    {
+        return response()->json(['data'=>$project->phases]);
+    }
+
+    public function getIssueListByPhase(ProjectPhase $phase)
+    {
+        $data = MaterialIssue::whereProjectPhaseId($phase->id)->get();
+        $contact_person = $phase->supervisor->name;
+
+        return response()->json([
+            'data'=>$data,
+            'contact_person'=>$contact_person
+          ]);
     }
 }

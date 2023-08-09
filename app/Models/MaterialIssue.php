@@ -21,4 +21,19 @@ class MaterialIssue extends Model
         'status',
         'warehouse_transfer_status',
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function phase()
+    {
+        return $this->belongsTo(ProjectPhase::class,'project_phase_id');
+    }
+
+    public function issueList()
+    {
+        return $this->hasMany(MaterialIssueList::class);
+    }
 }
