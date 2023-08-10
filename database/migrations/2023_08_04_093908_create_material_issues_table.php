@@ -24,6 +24,7 @@ return new class extends Migration
             $table->tinyInteger('isApproved')->default(0)->comment('1-Approved');
             $table->integer('delivery_order_status')->default(0);
             $table->integer('warehouse_transfer_status')->default(0);
+            $table->unsignedInteger('warehouse_transfer_id')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

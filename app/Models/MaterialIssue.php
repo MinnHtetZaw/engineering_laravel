@@ -20,6 +20,7 @@ class MaterialIssue extends Model
         'delivery_order_status',
         'status',
         'warehouse_transfer_status',
+        'warehouse_transfer_id'
     ];
 
     public function project()

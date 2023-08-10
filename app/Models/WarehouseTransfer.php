@@ -11,6 +11,20 @@ class WarehouseTransfer extends Model
 
     protected $fillable = [
         'warehouse_transfer_no',
-            
+        'regional_warehouse_id',
+        'date',
+        'total_qty',
+        'deliver_status',
+        'accept_status',
     ];
+
+    public function regWare()
+    {
+        return $this->belongsTo(RegionalWarehouse::class,'regional_warehouse_id');
+    }
+
+    public function materialIssues()
+    {
+        return $this->hasMany(MaterialIssue::class);
+    }
 }

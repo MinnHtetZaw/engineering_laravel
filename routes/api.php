@@ -190,7 +190,8 @@ Route::get('materialIssue/save/{id}',[RequestMaterialController::class,'saveMate
 
 //Warehouse
 Route::get('waretransfer/list',[]);
-Route::get('generate_WTO',[WarehouseController::class,'generateWTO']);
+Route::get('waretransfer/generate_WTO',[WarehouseController::class,'generateWTO']);
+Route::post('waretransfer/create',[WarehouseController::class,'createTransfer']);
 
 //Sale_Order
 Route::get('sales_order',[SaleController::class,'getSaleOrders']);
