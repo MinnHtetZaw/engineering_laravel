@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\WarehouseTransferResource;
 use App\Models\MaterialIssue;
 use App\Models\WarehouseTransfer;
 use Illuminate\Http\Request;
@@ -13,9 +14,9 @@ class WarehouseController extends Controller
 
     public function getList()
     {
-        $data =  WarehouseTransfer::all();
+        $data =  WarehouseTransfer::with('regWare','materialIssues.project','materialIssues.phase')->get();
 
-        return $data;
+        return response()->json(['data'=>$data]);
     }
 
     public function generateWTO()
@@ -48,14 +49,13 @@ class WarehouseController extends Controller
             {
                     $matIssue = MaterialIssue::find($list['id']);
                     $matIssue->warehouse_transfer_status = 1;
-                    $matIssue->warehouse_transfer_id    = $transfer->id;
+                    $matIssue->warehouse_transfer_id = $transfer->id;
                     $matIssue->save();
 
-                    $total +=$list->total_qty;
+                    $total +=$list['total_qty'];
             }
             $transfer->total_qty = $total;
             $transfer->save();
-
             return response()->json(['success'=>'Successfully Created!']);
         }
         catch(\Exception $e)

@@ -27,4 +27,5 @@ class WarehouseTransfer extends Model
     {
         return $this->hasMany(MaterialIssue::class);
     }
+
 }
