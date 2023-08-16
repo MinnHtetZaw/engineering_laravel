@@ -17,6 +17,7 @@ class RequestMaterialResource extends JsonResource
         return
         [
             'id'=>$this->id,
+            'request_code'=>$this->request_code,
             'from_employee_id'=>$this->employee_id,
             'from_employee'=>$this->employee->name,
             'project_id'=>$this->project_id,

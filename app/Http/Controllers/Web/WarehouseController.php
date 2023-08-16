@@ -14,7 +14,7 @@ class WarehouseController extends Controller
 
     public function getList()
     {
-        $data =  WarehouseTransfer::with('regWare','materialIssues.project','materialIssues.phase')->get();
+        $data =  WarehouseTransfer::with('regWare','materialIssues.project:id,name','materialIssues.phase:id,phase_name','materialIssues.requestMaterials')->get();
 
         return response()->json(['data'=>$data]);
     }

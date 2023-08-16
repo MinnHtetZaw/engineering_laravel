@@ -37,4 +37,9 @@ class MaterialIssue extends Model
     {
         return $this->hasMany(MaterialIssueList::class);
     }
+
+    public function requestMaterials()
+    {
+        return $this->belongsTo(RequestMaterial::class,'request_material_id');
+    }
 }

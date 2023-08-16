@@ -12,6 +12,7 @@ class RequestMaterial extends Model
     use HasFactory;
 
     protected $fillable = [
+        'request_code',
         'request_date',
         'employee_id',
         'reason',

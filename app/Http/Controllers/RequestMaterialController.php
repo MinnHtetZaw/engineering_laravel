@@ -16,7 +16,19 @@ class RequestMaterialController extends Controller
     //
     public function storeRequestProduct(Request $request)
     {
+
+        $rm =  RequestMaterial::get()->last();
+        if($rm)
+        {
+         $rm_num =  "RM-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($rm->id));
+        }
+        else{
+         $rm_num =  "RM-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", 1);
+        }
+
         $data= RequestMaterial::create([
+
+            'request_code'=> $rm_num,
             'employee_id'=>$request->employee_id,
             'project_id'=>$request->project_id,
             'project_phase_id'=>$request->phase_id,
@@ -67,7 +79,7 @@ class RequestMaterialController extends Controller
 
         return MaterialIssueResource::collection($data);
 
-  
+
     }
 
     public function saveMaterialIssue($id)

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('request_materials', function (Blueprint $table) {
             $table->id();
+            $table->string('request_code');
             $table->date('request_date');
             $table->unsignedInteger('project_id');
             $table->unsignedInteger('project_phase_id');
