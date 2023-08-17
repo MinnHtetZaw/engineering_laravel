@@ -197,6 +197,7 @@ Route::post('warehouse_transfer/create',[WarehouseController::class,'createTrans
 //RegionalWarehouse
 Route::get('regional_warehouse/searchProducts/{id}',[RegionalWarehouseController::class,'searchProducts']);
 Route::get('regional_warehouse/accept/{id}',[RegionalWarehouseController::class,'acceptTransfer']);
+Route::get('regional_warehouse/deliver/{id}',[RegionalWarehouseController::class,'deliverTransfer']);
 
 //Sale_Order
 Route::get('sales_order',[SaleController::class,'getSaleOrders']);
