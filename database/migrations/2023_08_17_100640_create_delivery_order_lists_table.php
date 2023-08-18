@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('delivery_order_lists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('delivery_order_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('item_id');
+            $table->integer('issue_qty');
+            $table->integer('reject_qty')->default(0);
+            $table->tinyInteger('reject_status')->default(0);
             $table->timestamps();
         });
     }

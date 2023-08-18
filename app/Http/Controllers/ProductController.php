@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $productData = Product::withCount(['items'=>function($query){
+        $productData = Product::with('brand','category')->withCount(['items'=>function($query){
            return $query->where('in_stock_flag',1)->where('warehouse_type',1);
         }])->get();
 
@@ -166,7 +166,8 @@ class ProductController extends Controller
             $subcat = SubCategory::where('id',$pro->subcategory_id)->first();
             array_push($subcategory,$subcat);
         }
-        $subcategory = collect($subcategory)->unique();
+        $subcategory = collect($subcategory)->unique()->values();
+
         return response()->json([
             'products' => $product,
             'subcategories' => $subcategory,
@@ -188,7 +189,17 @@ class ProductController extends Controller
     }
 
     public function brand_filter(Request $request){
-        $product = Product::where('department_id',$request->department_id)->where('category_id',$request->category_id)->where('subcategory_id',$request->subcategory_id)->where('brand_id',$request->brand_id)->get();
+        $product = Product::with('brand','category')
+                            ->where('department_id',$request->department_id)
+                            ->where('category_id',$request->category_id)
+                            ->where('subcategory_id',$request->subcategory_id)
+                            ->where('brand_id',$request->brand_id)
+                            ->withCount(['items'=>function ($query){
+                                return
+                                $query->where('in_stock_flag',1)
+                                      ->where('warehouse_type',1);
+                            }])
+                            ->get();
         return response()->json([
             'products' => $product
         ]);

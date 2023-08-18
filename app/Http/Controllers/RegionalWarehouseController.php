@@ -72,26 +72,26 @@ class RegionalWarehouseController extends Controller
 
         if($DO)
         {
-            $DO_code = sprintf("%04s", ($DO->id));
+            $DO_code = "DO-".sprintf("%04s", ($DO->id));
         }
         else{
-            $DO_code = sprintf("%04s",1);
+            $DO_code = "DO-".sprintf("%04s",1);
         }
 
         if($issue->purchase_order_id == null)
 			{
 				$reqMat = RequestMaterial::find($issue->request_material_id);
 
-				$Deliver_order = DeliveryOrder::create([
-                    'do_no'=>$DO_code,
-					'material_request_id' => $reqMat->id,
-					'material_issue_id' => $issue->id,
-					'warehouse_transfer_id' =>$issue->warehouse_transfer_id ,
-					'project_id' => $issue->project_id,
-					'project_phase_id' => $issue->project_phase_id,
-				]);
-			}
+				$Deliver_order =new DeliveryOrder();
+                    $Deliver_order->do_no = $DO_code;
+					$Deliver_order->request_material_id = $reqMat->id;
+					$Deliver_order->material_issue_id = $issue->id;
+					$Deliver_order->warehouse_transfer_id = $issue->warehouse_transfer_id;
+					$Deliver_order->project_id = $issue->project_id;
+					$Deliver_order->project_phase_id = $issue->project_phase_id;
+                $Deliver_order->save();
 
+			}
 
 			$material_issue_list = MaterialIssueList::where('material_issue_id',$issue->id)->get();
 
@@ -99,13 +99,11 @@ class RegionalWarehouseController extends Controller
 			{
 				    DeliveryOrderList::create([
 					'delivery_order_id' => $Deliver_order->id,
-                    'product_id'=>$matis_item->item->project_id,
+                    'product_id'=>$matis_item->item->product_id,
 					'item_id' => $matis_item->item_id,
 					'issue_qty' => $matis_item->issue_qty,
-
 				]);
 			}
-
 
         $data =  WarehouseTransfer::with('regWare','materialIssues.project:id,name','materialIssues.phase:id,phase_name','materialIssues.requestMaterials')->get();
 

@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory;
 
     // protected $with = ['category','brand','subcategory','primarysupplier','items','item_count'];
-    // protected $with = ['item_count'];
+    // protected $with = ['instockQty'];
 
     protected $fillable = [
         'department_id',
@@ -53,4 +53,6 @@ class Product extends Model
     {
         return $this->hasMany(Item::class);
     }
+
+
 }
