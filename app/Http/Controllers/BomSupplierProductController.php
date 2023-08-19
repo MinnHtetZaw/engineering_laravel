@@ -104,7 +104,7 @@ class BomSupplierProductController extends Controller
 
         $view = BomSupplierPurchaseOrder::where('bom_supplier_id',$id)->first();
 
-        $grnNo=BomSupplierGrn::all()->last();
+        $grnNo=BomSupplierGrn::get()->last();
 
         if( $grnNo != null){
             $grnID = "GRN-" .date('y') . sprintf("%02s", (intval(date('m')) + 1)) .sprintf("%03s", ( $grnNo->id+1));

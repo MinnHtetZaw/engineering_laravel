@@ -14,25 +14,31 @@ class BomSupplierGRNController extends Controller
 
     public function saveGRNData(Request $request){
 
-        $bom_supplier = BomSupplier::find($request->bom_supplier_id);
-        if( empty($bom_supplier->GRN_date) ){
+        try{
+            $bom_supplier = BomSupplier::find($request->bom_supplier_id);
+            if( empty($bom_supplier->GRN_date) ){
 
-            $bom_supplier->GRN_date = $request->grnDate;
-            $bom_supplier->save();
+                $bom_supplier->GRN_date = $request->grnDate;
+                $bom_supplier->save();
+            }
+
+           $bomGRN = BomSupplierGrn::create([
+            'grn_no'=>$request->grnNo,
+            'grnDate'=>$request->grnDate,
+            'bom_sup_po_id'=>$request->po_id,
+            'arrived_qty'=>$request->grnTotal??0,
+            'po_total_qty'=>$request->po_qty,
+            'recevied_by'=>$request->receive,
+            'delivered_by'=>$request->deliver,
+            ]);
+            return response()->json(['success'=>'Successfully Stored GRN']);
+        }
+        catch(\Exception $e)
+        {
+            return $e;
         }
 
-       $bomGRN = BomSupplierGrn::create([
-        'grn_no'=>$request->grnNo,
-        'grnDate'=>$request->grnDate,
-        'bom_sup_po_id'=>$request->po_id,
-        'arrived_qty'=>$request->grnTotal??0,
-        'po_total_qty'=>$request->po_qty,
-        'recevied_by'=>$request->receive,
-        'delivered_by'=>$request->deliver,
-        ]);
 
-
-        return response()->json(['success'=>'Successfully Stored GRN']);
     }
 
     public function saveGRNItem(Request $request){

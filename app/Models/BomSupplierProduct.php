@@ -9,7 +9,7 @@ class BomSupplierProduct extends Model
 {
     use HasFactory;
 
-    protected $with =['productdetail'];
+    protected $with =['productdetail.brand'];
 
     public function productdetail(){
         return $this->belongsTo(Product::class,'product_id');
