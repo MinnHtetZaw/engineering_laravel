@@ -15,6 +15,7 @@ use App\Models\MaterialIssueList;
 use App\Models\RegionalWarehouse;
 use App\Models\WarehouseTransfer;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DeliveryOrderResource;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\MaterialIssueListResource;
 
@@ -193,6 +194,14 @@ class RegWarehouseController extends Controller
         {
             return $e;
         }
+    }
+
+    public function site_delivery_order(){
+
+    	$site_delivery_orders = DeliveryOrder::all();
+
+    	return DeliveryOrderResource::collection($site_delivery_orders);
+
     }
 
 }

@@ -10,23 +10,33 @@ class DeliveryOrder extends Model
     use HasFactory;
 
     protected $fillable = [
+        'do_no',
+        'request_material_id',
     	'material_issue_id',
-        'ware_transfer_order_id',
-        'deliver_status',
+        'purchase_order_id',
+        'warehouse_transfer_id',
+        'project_id',
+        'project_phase_id',
+        'user_id',
         'receive_person',
         'phone',
-        'material_request_id',
-        'purchase_order_id',
-        'project_id',
-        'phase_id',
-        'item_list',
         'delivery_date',
-        'approve',
-        'status',
-        'user_id',
         'location',
-        'do_no',
-        'reject_status'
+        'status',
+        'approve',
     ];
 
+    public function deliveryOrderList()
+    {
+        return $this->hasMany(DeliveryOrderList::class);
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+    public function phase()
+    {
+        return $this->belongsTo(ProjectPhase::class,'project_phase_id');
+    }
 }
