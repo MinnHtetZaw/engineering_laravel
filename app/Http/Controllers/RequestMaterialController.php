@@ -20,7 +20,7 @@ class RequestMaterialController extends Controller
         $rm =  RequestMaterial::get()->last();
         if($rm)
         {
-         $rm_num =  "RM-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($rm->id));
+         $rm_num =  "RM-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($rm->id+1));
         }
         else{
          $rm_num =  "RM-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", 1);
@@ -92,7 +92,7 @@ class RequestMaterialController extends Controller
         $mi =  MaterialIssue::get()->last();
         if($mi)
         {
-         $mi_num =  "MI-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($mi->id));
+         $mi_num =  "MI-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($mi->id+1));
         }
         else{
          $mi_num =  "MI-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", 1);

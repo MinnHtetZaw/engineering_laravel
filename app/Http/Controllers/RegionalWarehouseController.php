@@ -72,7 +72,7 @@ class RegionalWarehouseController extends Controller
 
         if($DO)
         {
-            $DO_code = "DO-".sprintf("%04s", ($DO->id));
+            $DO_code = "DO-".sprintf("%04s", ($DO->id+1));
         }
         else{
             $DO_code = "DO-".sprintf("%04s",1);

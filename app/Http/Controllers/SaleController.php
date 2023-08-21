@@ -20,7 +20,7 @@ class SaleController extends Controller
                $sale =  SaleOrder::get()->last();
                if($sale)
                {
-                $sale_num =  "SO-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($sale->id));
+                $sale_num =  "SO-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($sale->id+1));
                }
                else{
                 $sale_num =  "SO-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", 1);
@@ -60,7 +60,7 @@ class SaleController extends Controller
         $pr =  PurchaseRequest::get()->last();
         if($pr)
         {
-         $pr_num =  "WPR-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($pr->id));
+         $pr_num =  "WPR-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", ($pr->id+1));
         }
         else{
          $pr_num =  "WPR-" . sprintf("%02s", (intval(date('m')))) . sprintf("%03s", 1);
@@ -78,7 +78,7 @@ class SaleController extends Controller
                $RM = RequestMaterial::find($request->request_material_id);
                $RM->isRequested = 1;
                $RM->save();
-               
+
             $purchaseRequest= PurchaseRequest::create([
                 'pr_no'=>$pr_num,
                 'request_date'=>$request->date,

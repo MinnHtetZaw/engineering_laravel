@@ -25,7 +25,7 @@ class WarehouseController extends Controller
 
             if($data)
             {
-                $wto = sprintf("%04s", ($data->id));
+                $wto = sprintf("%04s", ($data->id +1));
             }
             else{
                 $wto = sprintf("%04s",1);
