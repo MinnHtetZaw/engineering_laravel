@@ -204,4 +204,34 @@ class RegWarehouseController extends Controller
 
     }
 
+    public function updateReceiveInfo(Request $request)
+    {
+        try{
+            $delivery_order = DeliveryOrder::find($request->DOid);
+            $delivery_order->receive_person = $request->receive_person;
+            $delivery_order->phone = $request->phone;
+            $delivery_order->location = $request->location;
+            $delivery_order->delivery_date = $request->deliver_date;
+            $delivery_order->save();
+
+            $site_delivery_orders = DeliveryOrder::all();
+
+    	    return DeliveryOrderResource::collection($site_delivery_orders);
+
+        }catch(\Exception $e)
+        {
+            return $e;
+        }
+
+    }
+
+    public function approveDO(Request $request)
+    {
+        $delivery_order = DeliveryOrder::find($request->id);
+        $delivery_order->status = 1;
+        $delivery_order->approve = 1;
+        $delivery_order->save();
+
+        return redirect()->route('Do#List');
+    }
 }

@@ -39,4 +39,27 @@ class DeliveryOrder extends Model
     {
         return $this->belongsTo(ProjectPhase::class,'project_phase_id');
     }
+    public function issue()
+    {
+        return $this->belongsTo(MaterialIssue::class);
+    }
+    public function requestMaterial()
+    {
+        return $this->belongsTo(RequestMaterial::class);
+    }
+    public function purchaseOrder()
+    {
+        return $this->belongsTo(PurchaseOrder::class);
+    }
+
+    public function customerName()
+    {
+        if($this->purchase_order_id == null && $this->request_material_id != null)
+        {
+            return $this->requestMaterial->requested_by;
+        }
+        else{
+            return $this->purchaseOrder->customer_name;
+        }
+    }
 }
