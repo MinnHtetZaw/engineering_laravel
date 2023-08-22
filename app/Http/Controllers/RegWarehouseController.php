@@ -226,23 +226,18 @@ class RegWarehouseController extends Controller
     public function approveDO(Request $request)
     {
         $delivery_order = DeliveryOrder::find($request->id);
-        // $delivery_order->status = 1;
-        // $delivery_order->approve = 1;
-        // $delivery_order->save();
+        $delivery_order->status = 1;
+        $delivery_order->approve = 1;
+        $delivery_order->save();
 
-        $DO_list = DeliveryOrderList::where('delivery_order_id',$delivery_order->id)->get();
-
-        $item =[];
-        foreach($DO_list as $list)
+        foreach($delivery_order->deliveryOrderList as $list)
         {
                 $data = Item::find($list->item_id);
-                $item[]=$data;
-                // $data->delivered_flag = 1;
-                // $data->in_transit_flag = 0 ;
-
-                // $data->save();
+                $data->delivered_flag = 1;
+                $data->in_transit_flag = 0 ;
+                $data->save();
         }
-        return $item;
-        // return redirect()->route('Do#List');
+
+        return redirect()->route('Do#List');
     }
 }
