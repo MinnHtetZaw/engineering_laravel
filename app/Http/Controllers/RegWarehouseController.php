@@ -214,9 +214,7 @@ class RegWarehouseController extends Controller
             $delivery_order->delivery_date = $request->deliver_date;
             $delivery_order->save();
 
-            $site_delivery_orders = DeliveryOrder::all();
-
-    	    return DeliveryOrderResource::collection($site_delivery_orders);
+            return redirect()->route('Do#List');
 
         }catch(\Exception $e)
         {
@@ -228,10 +226,23 @@ class RegWarehouseController extends Controller
     public function approveDO(Request $request)
     {
         $delivery_order = DeliveryOrder::find($request->id);
-        $delivery_order->status = 1;
-        $delivery_order->approve = 1;
-        $delivery_order->save();
+        // $delivery_order->status = 1;
+        // $delivery_order->approve = 1;
+        // $delivery_order->save();
 
-        return redirect()->route('Do#List');
+        $DO_list = DeliveryOrderList::where('delivery_order_id',$delivery_order->id)->get();
+
+        $item =[];
+        foreach($DO_list as $list)
+        {
+                $data = Item::find($list->item_id);
+                $item[]=$data;
+                // $data->delivered_flag = 1;
+                // $data->in_transit_flag = 0 ;
+
+                // $data->save();
+        }
+        return $item;
+        // return redirect()->route('Do#List');
     }
 }

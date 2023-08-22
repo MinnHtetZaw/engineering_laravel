@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\WarehouseTransferResource;
+use App\Models\Item;
 use App\Models\MaterialIssue;
 use App\Models\WarehouseTransfer;
 use Illuminate\Http\Request;
@@ -47,12 +48,22 @@ class WarehouseController extends Controller
              $total = 0;
             foreach($request->issueList as $list)
             {
+                    $total +=$list['total_qty'];
+
                     $matIssue = MaterialIssue::find($list['id']);
                     $matIssue->warehouse_transfer_status = 1;
                     $matIssue->warehouse_transfer_id = $transfer->id;
                     $matIssue->save();
 
-                    $total +=$list['total_qty'];
+                    foreach($matIssue->issueList as $mat_issue_list)
+                    {
+                           $item =Item::find($mat_issue_list->item_id);
+                           $item->reserved_flag = 0 ;
+                           $item->in_transit_flag = 1;
+                           $item->save();
+                    }
+
+
             }
             $transfer->total_qty = $total;
             $transfer->save();
@@ -60,7 +71,7 @@ class WarehouseController extends Controller
         }
         catch(\Exception $e)
         {
-            return response(500)->json($e);
+            return response()->json($e,500);
         }
     }
 }
