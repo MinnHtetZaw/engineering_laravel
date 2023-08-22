@@ -28,6 +28,7 @@ return new class extends Migration
             $table->date('delivery_date')->nullable();
             $table->string('location')->nullable();
             $table->integer('status')->default(0);
+            $table->tinyInteger('receive_status')->default(0);
             $table->integer('approve')->default(0);
             $table->timestamps();
         });

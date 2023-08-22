@@ -84,7 +84,7 @@ class RegWarehouseController extends Controller
 
     public function getIssueListByPhase(ProjectPhase $phase)
     {
-        $data = MaterialIssue::whereProjectPhaseId($phase->id)->get();
+        $data = MaterialIssue::where('project_phase_id',$phase->id)->where('warehouse_transfer_status',1)->get();
         $contact_person = $phase->supervisor->name;
 
         return response()->json([
@@ -227,7 +227,6 @@ class RegWarehouseController extends Controller
     {
         $delivery_order = DeliveryOrder::find($request->id);
         $delivery_order->status = 1;
-        $delivery_order->approve = 1;
         $delivery_order->save();
 
         foreach($delivery_order->deliveryOrderList as $list)

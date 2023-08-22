@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Mobile\ItemController;
+use App\Http\Controllers\Mobile\MobileItemController;
 use App\Http\Controllers\Mobile\AssetController;
 use App\Http\Controllers\Mobile\ProductController;
 use App\Http\Controllers\Mobile\ProjectController;
@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth:api','CustomerPermissionAPI']], function ()
 
 //Product
 Route::get('productList',[ProductController::class,'getProductList']);
-Route::post('mobile_site_inventory',[ItemController::class,'SiteItemsInventory']);
+Route::post('mobile_site_inventory',[MobileItemController::class,'SiteItemsInventory']);
 
 
 // Project

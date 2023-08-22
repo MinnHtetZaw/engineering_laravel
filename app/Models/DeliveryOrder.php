@@ -23,6 +23,7 @@ class DeliveryOrder extends Model
         'delivery_date',
         'location',
         'status',
+        'receive_status',
         'approve',
     ];
 

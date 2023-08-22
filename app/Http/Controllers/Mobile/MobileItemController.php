@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 
-class ItemController extends Controller
+class MobileItemController extends Controller
 {
 
     public function SiteItemsInventory(Request $request)

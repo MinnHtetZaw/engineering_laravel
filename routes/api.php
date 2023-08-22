@@ -188,7 +188,6 @@ Route::post('request_material_status',[RequestMaterialController::class,'changeS
 Route::get('materialIssue/list',[RequestMaterialController::class,'showIssueList']);
 Route::get('materialIssue/save/{id}',[RequestMaterialController::class,'saveMaterialIssue']);
 
-
 //Warehouse
 Route::get('warehouse_transfer/list',[WarehouseController::class,'getList']);
 Route::get('warehouse_transfer/generate_WTO',[WarehouseController::class,'generateWTO']);
