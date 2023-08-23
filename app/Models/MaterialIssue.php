@@ -11,7 +11,7 @@ class MaterialIssue extends Model
 
     protected $fillable = [
         'material_issue_no',
-        'sale_order_id',
+        'purchase_order_id',
         'total_qty',
         'request_material_id',
         'project_id',
@@ -41,5 +41,25 @@ class MaterialIssue extends Model
     public function requestMaterials()
     {
         return $this->belongsTo(RequestMaterial::class,'request_material_id');
+    }
+
+    public function purchaseOrder()
+    {
+        return $this->belongsTo(PurchaseOrder::class);
+    }
+    public function warehouseTransfer()
+    {
+        return $this->belongsTo(WarehouseTransfer::class);
+    }
+
+    public function customerName()
+    {
+        if($this->purchase_order_id != null && $this->request_material_id == null)
+        {
+            return $this->purchaseOrder->customer_name;
+        }
+        else{
+            return $this->requestMaterials->requested_by;
+        }
     }
 }

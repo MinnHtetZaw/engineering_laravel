@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers\Mobile;
 
+use App\Models\Item;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Models\DeliveryOrder;
+
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SiteItemResource;
-use Illuminate\Http\Request;
-
-use App\Models\Product;
+use App\Http\Resources\DeliveryOrderResource;
 
 class MobileItemController extends Controller
 {
 
+    public function getProductList()
+    {
+       $data= Product::select('id as product_id','product_name','product_img')->without('category','brand','subcategory','primarysupplier')->get();
+
+       return response()->json(['products'=>$data]);
+    }
+    
     public function SiteItemsInventory(Request $request)
     {
 
@@ -30,6 +40,48 @@ class MobileItemController extends Controller
 
 
         return ProductResource::collection($items);
+    }
+
+
+    public function siteDeliveryOrder()
+    {
+
+    	$site_delivery_orders = DeliveryOrder::all();
+
+    	return DeliveryOrderResource::collection($site_delivery_orders);
+
+    }
+
+    public function receiveOrder(Request $request)
+    {
+
+        $DO = DeliveryOrder::find($request->delivery_order_id);
+        $DO->receive_status = 1 ;
+        $DO->save();
+
+        foreach ($DO->deliveryOrderList as $list)
+        {
+            $item = Item::find($list->item_id);
+            $item->in_stock_flag = 1;
+            $item->reserved_flag = 0;
+            $item->in_transit_flag = 0;
+            $item->delivered_flag = 0;
+            $item->active_flag = 0;
+            $item->site_direct_flag = 0;
+
+            $item->project_id = $DO->project_id;
+            $item->project_phase_id = $DO->project_phase_id;
+            $item->site = 2;
+            $item->warehouse_type = 0;
+            $item->warehouse_id = 0 ;
+            $item->save();
+
+        }
+
+        $site_delivery_orders = DeliveryOrder::all();
+
+    	return DeliveryOrderResource::collection($site_delivery_orders);
+
     }
 
 }

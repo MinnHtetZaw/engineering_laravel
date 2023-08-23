@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 
-class AssetController extends Controller
+class MobileAssetController extends Controller
 {
     //
     public function searchAsset()

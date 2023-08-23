@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mobile\MobileItemController;
 use App\Http\Controllers\Mobile\AssetController;
 use App\Http\Controllers\Mobile\ProductController;
-use App\Http\Controllers\Mobile\ProjectController;
+use App\Http\Controllers\Mobile\MobileProjectController;
 use App\Http\Controllers\Mobile\LoginController;
-use App\Http\Controllers\Mobile\MaintenanceController;
+use App\Http\Controllers\Mobile\MobileMaintenanceController;
 use App\Http\Controllers\Mobile\RequestMaterialController;
 
 
@@ -21,27 +21,28 @@ Route::group(['middleware' => ['auth:api','CustomerPermissionAPI']], function ()
 });
 
 //Product
-Route::get('productList',[ProductController::class,'getProductList']);
+Route::get('productList',[MobileItemController::class,'getProductList']);
 Route::post('mobile_site_inventory',[MobileItemController::class,'SiteItemsInventory']);
-
+Route::get('delivery_order',[MobileItemController::class,'siteDeliveryOrder'])->name('mobile#DO');
+Route::post('delivery_order/receive',[MobileItemController::class,'receiveOrder']);
 
 // Project
-Route::get('projectListById/{employeeid}',[ProjectController::class,'getProjectListByid']);
-Route::apiResource('project', ProjectController::class);
-Route::post('report_task_store',[ProjectController::class,'storeReportTask']);
-Route::get('task_report_list_by_employee/{employee}',[ProjectController::class,'getAllListByID']);
+Route::get('projectListById/{employeeid}',[MobileProjectController::class,'getProjectListByid']);
+Route::apiResource('project', MobileProjectController::class);
+Route::post('report_task_store',[MobileProjectController::class,'storeReportTask']);
+Route::get('task_report_list_by_employee/{employee}',[MobileProjectController::class,'getAllListByID']);
 
 //Assest
-Route::get('asset', [AssetController::class, 'getAsset']);
-Route::get('searchAsset',[AssetController::class,'searchAsset']);
+Route::get('asset', [MobileAssetController::class, 'getAsset']);
+Route::get('searchAsset',[MobileAssetController::class,'searchAsset']);
 
 //Maintenance
-Route::get('room_building', [MaintenanceController::class, 'getBuildingRoomData']);
-Route::post('request_store', [MaintenanceController::class, 'storeRequest']);
-Route::post('report_maintenance_store',[MaintenanceController::class,'storeReport']);
-Route::get('reportReqMaintainList/{reqMaintain}',[MaintenanceController::class,'getList']);
-Route::get('request_list', [MaintenanceController::class, 'getRequestList']);
-Route::post('request_list_by_employeeID',[MaintenanceController::class,'getRequestListByEmployeeID']);
+Route::get('room_building', [MobileMaintenanceController::class, 'getBuildingRoomData']);
+Route::post('request_store', [MobileMaintenanceController::class, 'storeRequest']);
+Route::post('report_maintenance_store',[MobileMaintenanceController::class,'storeReport']);
+Route::get('reportReqMaintainList/{reqMaintain}',[MobileMaintenanceController::class,'getList']);
+Route::get('request_list', [MobileMaintenanceController::class, 'getRequestList']);
+Route::post('request_list_by_employeeID',[MobileMaintenanceController::class,'getRequestListByEmployeeID']);
 
 
 //RequestMaterial

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('material_issues', function (Blueprint $table) {
             $table->id();
             $table->string('material_issue_no');
-            $table->unsignedInteger('sale_order_id')->nullable();
+            $table->unsignedInteger('purchase_order_id')->nullable();
             $table->integer('total_qty');
             $table->unsignedInteger('request_material_id')->nullable();
             $table->unsignedInteger('project_id')->nullable();

@@ -17,7 +17,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\ReportTaskResource;
 
-class ProjectController extends Controller
+class MobileProjectController extends Controller
 {
     //
 
@@ -48,7 +48,7 @@ class ProjectController extends Controller
         })->orderByDesc('finished_date')->get();
         return response()->json($data);
     }
-    
+
 
     public function storeReportTask(Request $request)
     {

@@ -33,6 +33,7 @@ class DeliveryOrderResource extends JsonResource
         'dispatch_date'=>$this->requestMaterial->dispatch_date,
         'location'=>$this->location,
         'status'=>$this->status,
+        'receive_status'=>$this->receive_status,
         'approve'=>$this->approve,
         'delivery_order_list'=>DeliveryOrderListResource::collection($this->deliveryOrderList)
         ];

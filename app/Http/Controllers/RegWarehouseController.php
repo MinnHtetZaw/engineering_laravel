@@ -84,13 +84,15 @@ class RegWarehouseController extends Controller
 
     public function getIssueListByPhase(ProjectPhase $phase)
     {
-        $data = MaterialIssue::where('project_phase_id',$phase->id)->where('warehouse_transfer_status',1)->get();
-        $contact_person = $phase->supervisor->name;
 
-        return response()->json([
-            'data'=>$data,
-            'contact_person'=>$contact_person
-          ]);
+            $data = MaterialIssue::where('project_phase_id',$phase->id)->where('warehouse_transfer_status',0)->get();
+            $contact_person = $phase->supervisor->name;
+
+            return response()->json([
+                'data'=>$data,
+                'contact_person'=>$contact_person
+              ]);
+
     }
 
     public function searchProducts($id)

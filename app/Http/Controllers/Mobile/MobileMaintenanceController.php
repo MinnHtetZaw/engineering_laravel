@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\ReportRequestMinatenanceFile;
 use App\Http\Resources\ReportRequestMaintenanceResource;
 
-class MaintenanceController extends Controller
+class MobileMaintenanceController extends Controller
 {
     //
 
