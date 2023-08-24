@@ -52,14 +52,22 @@ class MaterialIssue extends Model
         return $this->belongsTo(WarehouseTransfer::class);
     }
 
-    public function customerName()
+    public function customerInfo()
     {
         if($this->purchase_order_id != null && $this->request_material_id == null)
         {
-            return $this->purchaseOrder->customer_name;
+            return [
+                'name' => $this->purchaseOrder->customer_name,
+                'phone'=> $this->purchaseOrder->phone
+            ];
         }
         else{
-            return $this->requestMaterials->requested_by;
+
+            return[
+                'name' =>$this->requestMaterials->requested_by,
+                'phone'=> $this->requestMaterials->employee->user->phone
+            ];
         }
     }
+
 }
