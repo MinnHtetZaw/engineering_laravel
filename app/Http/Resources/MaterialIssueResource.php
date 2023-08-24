@@ -27,7 +27,7 @@ class MaterialIssueResource extends JsonResource
             'project_name'=>$this->project->name,
             'project_phase_id'=>$this->project_phase_id,
             'phase_name'=>$this->phase->phase_name,
-            'transfer_date'=>$this->warehouseTransfer->date,
+            'transfer_date'=>$this->warehouseTransfer->date ?? "",
             'isApproved'=>$this->isApproved,
             'delivery_order_status'=>$this->delivery_order_status,
             'warehouse_transfer_status'=>$this->warehouse_transfer_status,

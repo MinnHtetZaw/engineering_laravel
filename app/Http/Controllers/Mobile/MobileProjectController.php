@@ -31,11 +31,23 @@ class MobileProjectController extends Controller
         ],200);
     }
 
-
-    public function getProjectListByid($id)
+    public function getProjectForInv(Employee $employee)
     {
-            $emp=Employee::find($id);
-            $phases  =  ProjectPhase::where('user_id',$emp->user_id)->with('project:id,name,project_contact_person,phone,email','phasetasks')->get();
+        $projects = Project::withWhereHas('phases',function ($query) use($employee){
+                            $query->where('user_id',$employee->user_id);
+        })->get();
+
+        $user = User::all();
+        return response()->json([
+            'project' => $projects,
+            'user' => $user,
+        ],200);
+    }
+
+    public function getProjectListByid(Employee $employee)
+    {
+
+            $phases  =  ProjectPhase::where('user_id',$employee->user_id)->with('project:id,name,project_contact_person,phone,email','phasetasks')->get();
 
          return response()->json(['phases'=>$phases]);
     }

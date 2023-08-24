@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SiteItemResource;
 use App\Http\Resources\DeliveryOrderResource;
+use App\Models\Employee;
 
 class MobileItemController extends Controller
 {
@@ -21,7 +22,7 @@ class MobileItemController extends Controller
 
        return response()->json(['products'=>$data]);
     }
-    
+
     public function SiteItemsInventory(Request $request)
     {
 
@@ -43,10 +44,12 @@ class MobileItemController extends Controller
     }
 
 
-    public function siteDeliveryOrder()
+    public function siteDeliveryOrder(Employee $employee)
     {
 
-    	$site_delivery_orders = DeliveryOrder::all();
+    	$site_delivery_orders = DeliveryOrder::whereHas('phase',function ($query) use ($employee){
+                                               return $query->where('user_id',$employee->user_id);
+                            })->get();
 
     	return DeliveryOrderResource::collection($site_delivery_orders);
 

@@ -3,12 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mobile\MobileItemController;
-use App\Http\Controllers\Mobile\AssetController;
-use App\Http\Controllers\Mobile\ProductController;
+use App\Http\Controllers\Mobile\MobileAssetController;
 use App\Http\Controllers\Mobile\MobileProjectController;
 use App\Http\Controllers\Mobile\LoginController;
 use App\Http\Controllers\Mobile\MobileMaintenanceController;
-use App\Http\Controllers\Mobile\RequestMaterialController;
+use App\Http\Controllers\Mobile\MobileRequestMaterialController;
 
 
 Route::post('login',[LoginController::class,'loginProcess']);
@@ -23,12 +22,13 @@ Route::group(['middleware' => ['auth:api','CustomerPermissionAPI']], function ()
 //Product
 Route::get('productList',[MobileItemController::class,'getProductList']);
 Route::post('mobile_site_inventory',[MobileItemController::class,'SiteItemsInventory']);
-Route::get('delivery_order',[MobileItemController::class,'siteDeliveryOrder'])->name('mobile#DO');
+Route::get('delivery_order/{employee}',[MobileItemController::class,'siteDeliveryOrder'])->name('mobile#DO');
 Route::post('delivery_order/receive',[MobileItemController::class,'receiveOrder']);
 
 // Project
-Route::get('projectListById/{employeeid}',[MobileProjectController::class,'getProjectListByid']);
+Route::get('projectListById/{employee}',[MobileProjectController::class,'getProjectListByid']);
 Route::apiResource('project', MobileProjectController::class);
+Route::get('projectInv/{employee}', [MobileProjectController::class,'getProjectForInv']);
 Route::post('report_task_store',[MobileProjectController::class,'storeReportTask']);
 Route::get('task_report_list_by_employee/{employee}',[MobileProjectController::class,'getAllListByID']);
 
@@ -46,8 +46,8 @@ Route::post('request_list_by_employeeID',[MobileMaintenanceController::class,'ge
 
 
 //RequestMaterial
-Route::post('requestProductStore',[RequestMaterialController::class,'storeRequestProduct']);
-Route::get('requestProductList',[RequestMaterialController::class,'getRequestMaterialList']);
+Route::post('requestProductStore',[MobileRequestMaterialController::class,'storeRequestProduct']);
+Route::get('requestProductList',[MobileRequestMaterialController::class,'getRequestMaterialList']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
