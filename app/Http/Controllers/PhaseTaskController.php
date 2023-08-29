@@ -40,7 +40,7 @@ class PhaseTaskController extends Controller
 
     public function getTask($id)
     {
-        $data=PhaseTask::where('project_phase_id',$id)->get();
+        $data=PhaseTask::with('reports')->where('project_phase_id',$id)->get();
 
         return response()->json(['tasks'=>$data]);
     }
@@ -52,6 +52,7 @@ class PhaseTaskController extends Controller
                         'report_description' => 'required',
                         'checked_by' => 'required',
                     ]);
+
                     if ($validator->fails()) {
                         return $this->sendFailResponse("Wrong!!!");
                     }
