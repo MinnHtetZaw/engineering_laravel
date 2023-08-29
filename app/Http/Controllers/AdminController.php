@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormListRequest;
+use App\Http\Resources\FormListResource;
 use App\Models\Department;
+use App\Models\FormList;
 use App\Models\Item;
 use App\Models\Product;
 use App\Models\Incoterm;
+use App\Models\Role;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\SupplierProductComparison;
@@ -137,5 +141,19 @@ class AdminController extends Controller
         return response()->json($department);
     }
 
+    public function getRoles()
+    {
+       $data= Role::all();
+       return response()->json($data);
+    }
+
+    public function createForm(FormListRequest $request)
+    {
+        $validated = $request->validated();
+
+        $data = FormList::create($validated);
+
+        return new FormListResource($data);
+    }
 
 }

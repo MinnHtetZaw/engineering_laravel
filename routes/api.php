@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth:api','CustomerPermissionAPI']], function ()
 	Route::post('updatePassword', 'Api\LoginController@updatePassword');
 });
 
+
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('sub_category', SubCategoryController::class);
 Route::apiResource('brand', BrandController::class);
@@ -129,7 +130,8 @@ Route::get('pro_detail/{id}', [AdminController::class, 'getProductDetail']);
 Route::get('product_compare/{id}', [AdminController::class, 'getProductCompareData']);
 Route::get('item_detail/{id}', [AdminController::class, 'getItemDetail']);
 Route::get('department', [AdminController::class, 'getDepartmentList']);
-
+Route::get('roles',[AdminController::class,'getRoles']);
+Route::post('form/create',[AdminController::class,'createForm']);
 //Zone
 Route::get('zone', [ZoneController::class, 'getZone']);
 Route::post('zone_store', [ZoneController::class, 'store_zone']);
