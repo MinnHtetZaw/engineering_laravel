@@ -156,4 +156,10 @@ class AdminController extends Controller
         return new FormListResource($data);
     }
 
+    public function getFormLists()
+    {
+
+        return FormListResource::collection(FormList::all());
+    }
+
 }

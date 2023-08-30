@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('form_lists', function (Blueprint $table) {
             $table->id();
+            $table->string('form_name');
+			$table->string('prefix');
+			$table->string('index_digit')->nullable();
+			$table->unsignedInteger('check_by');
+            $table->unsignedInteger('approve_by');
+            $table->unsignedInteger('prepare_by');
             $table->timestamps();
         });
     }
