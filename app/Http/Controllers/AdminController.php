@@ -162,4 +162,23 @@ class AdminController extends Controller
         return FormListResource::collection(FormList::all());
     }
 
+    public function updateForm(FormListRequest $request)
+    {
+
+
+            $validated = $request->validated();
+
+              $data = FormList::find($request->form_id);
+
+              $data->form_name = $validated['form_name'];
+              $data->prefix = $validated['prefix'];
+              $data->approve_by = $validated['approve_by'];
+              $data->check_by = $validated['check_by'];
+              $data->prepare_by = $validated['prepare_by'];
+              $data->index_digit = $request['index_digit'];
+              $data->save();
+
+              return new FormListResource($data);
+    }
+
 }

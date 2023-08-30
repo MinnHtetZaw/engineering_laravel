@@ -133,6 +133,8 @@ Route::get('department', [AdminController::class, 'getDepartmentList']);
 Route::get('roles',[AdminController::class,'getRoles']);
 Route::post('form/create',[AdminController::class,'createForm']);
 Route::get('form/lists',[AdminController::class,'getFormLists']);
+Route::post('form/update',[AdminController::class,'updateForm']);
+
 //Zone
 Route::get('zone', [ZoneController::class, 'getZone']);
 Route::post('zone_store', [ZoneController::class, 'store_zone']);
