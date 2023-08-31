@@ -24,11 +24,11 @@ class RequestMaterialList extends Model
         $qty =collect($items)
             ->groupBy('product_id')
             ->map(function ($query){
-                 return ["required" =>$query->where('warehouse_type',1)->where('in_stock_flag')->sum('stock_qty')];
+                 return ["required" =>$query->where('warehouse_type',1)->where('in_stock_flag',1)->sum('stock_qty')];
              })
              ->value('required');
 
-        return $qty;
+        return $qty ?? 0;
     }
 
     public function requiredQty()
