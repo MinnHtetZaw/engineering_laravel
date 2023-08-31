@@ -118,9 +118,9 @@ class RequestMaterialController extends Controller
 
                 foreach ( $data->products as $product_list) {
 
-                    $items = $product_list->product->items->where('warehouse_type',1)->where('in_stock_flag',1) ;
+                    $items = collect($product_list->product->items->where('warehouse_type',1)->where('in_stock_flag',1))->values()  ;
 
-                    for($i=0; $i < $product_list->approved_quantity ; $i++ )
+                    for($i=0;   $i < $product_list->approved_quantity ; $i++ )
                     {
                          MaterialIssueList::create([
                         'material_issue_id' => $material_issue->id,
