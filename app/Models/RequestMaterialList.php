@@ -28,7 +28,7 @@ class RequestMaterialList extends Model
              })
              ->value('required');
 
-        return $qty ?? 0;
+        return $qty ;
     }
 
     public function requiredQty()
