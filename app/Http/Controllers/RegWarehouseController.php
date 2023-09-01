@@ -112,10 +112,19 @@ class RegWarehouseController extends Controller
             $WT->save();
 
             $issues =   MaterialIssue::whereWarehouseTransferId($id)->get();
+
             foreach($issues as $issue)
             {
                 $issue->status= 1;
                 $issue->save();
+
+                foreach($issue->issueList as $list)
+                {
+                        $item = Item::find($list->item_id);
+                        $item->warehouse_type = 0;
+                        $item->warehouse_id =$id;
+                        $item->save();
+                }
             }
 
 
