@@ -123,7 +123,7 @@ class RegWarehouseController extends Controller
                 {
                         $item = Item::find($list->item_id);
                         $item->warehouse_type = 0;
-                        $item->warehouse_id =$id;
+                        $item->warehouse_id = $WT->regional_warehouse_id;
                         $item->save();
                 }
             }
