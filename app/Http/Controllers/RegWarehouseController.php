@@ -118,6 +118,7 @@ class RegWarehouseController extends Controller
                 $issue->status= 1;
                 $issue->save();
 
+                // Change MainWarehouse to Regional After Accept
                 foreach($issue->issueList as $list)
                 {
                         $item = Item::find($list->item_id);
